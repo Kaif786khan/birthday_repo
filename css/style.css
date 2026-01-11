@@ -1,0 +1,100 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    color: #ffffff;
+    background-image: url("../assets/images/background.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+/* Glass */
+.glass {
+    background: rgba(0,0,0,0.35);
+    backdrop-filter: blur(8px);
+    border-radius: 16px;
+    padding: 30px;
+}
+
+/* Hero */
+.hero {
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+/* Cards Section */
+.cards-section {
+    padding: 80px 20px 120px;
+    text-align: center;
+}
+
+.section-title {
+    display: inline-block;
+    margin-bottom: 50px;
+    font-size: 32px;
+}
+
+/* 🔥 IMPORTANT FIX HERE 🔥 */
+.cards-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 30px;
+
+    align-items: start; /* ← THIS FIXES THE ISSUE */
+}
+
+/* Card */
+.card {
+    background-color: rgba(255,255,255,0.92);
+    color: #333;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.35);
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+}
+
+.card-image {
+    height: 220px;
+    background-size: cover;
+    background-position: center;
+}
+
+.card-content {
+    padding: 16px 20px 20px;
+}
+
+.card-content h3 {
+    font-size: 20px;
+}
+
+/* Hidden text */
+.card-content p {
+    margin-top: 12px;
+    font-size: 15px;
+    color: #555;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.5s ease, opacity 0.4s ease;
+}
+
+/* Only clicked card expands */
+.card.active .card-content p {
+    max-height: 200px;
+    opacity: 1;
+}
