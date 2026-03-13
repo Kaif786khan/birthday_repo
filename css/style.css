@@ -49,8 +49,8 @@ body {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: 30px;
-
-    align-items: start; /* ← THIS FIXES THE ISSUE */
+    align-items: start;
+    position: relative;
 }
 
 /* Card */
@@ -61,25 +61,65 @@ body {
     overflow: hidden;
     box-shadow: 0 20px 40px rgba(0,0,0,0.35);
     cursor: pointer;
-    transition: transform 0.3s ease;
+    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    opacity: 1;
 }
 
-.card:hover {
+.card:hover:not(.active) {
     transform: translateY(-8px);
+}
+
+/* Fade out cards when another is active */
+.cards-container.has-active .card:not(.active) {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Active card - centered and enlarged */
+.card.active {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 85vw;
+    max-width: 800px;
+    height: auto;
+    z-index: 1000;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.5);
 }
 
 .card-image {
     height: 220px;
-    background-size: cover;
+    background-size: contain;
     background-position: center;
+    background-repeat: no-repeat;
+    background-color: #f5f5f5;
+    transition: height 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.card.active .card-image {
+    height: 500px;
 }
 
 .card-content {
-    padding: 16px 20px 20px;
+    padding: 20px 24px 24px;
+    transition: padding 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.card.active .card-content {
+    padding: 40px 45px 45px;
 }
 
 .card-content h3 {
-    font-size: 20px;
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: font-size 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.card.active .card-content h3 {
+    font-size: 32px;
+    margin-bottom: 20px;
 }
 
 /* Hidden text */
@@ -90,11 +130,15 @@ body {
     max-height: 0;
     overflow: hidden;
     opacity: 0;
-    transition: max-height 0.5s ease, opacity 0.4s ease;
+    transition: max-height 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 /* Only clicked card expands */
 .card.active .card-content p {
-    max-height: 200px;
+    max-height: 800px;
     opacity: 1;
+    font-size: 17px;
+    line-height: 1.85;
+    letter-spacing: 0.3px;
+    margin-top: 20px;
 }
